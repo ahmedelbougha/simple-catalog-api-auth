@@ -14,6 +14,12 @@ using aspnetcoregraphql.Models.Types;
 using aspnetcoregraphql.Models.Schemas;
 using GraphQL;
 using GraphQL.Types;
+using GraphQL.Authorization;
+using GraphQL.Validation;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using aspnetcoregraphql.Auth;
+using System.Security.Claims;
 
 namespace aspnetcoregraphql
 {
@@ -53,6 +59,21 @@ namespace aspnetcoregraphql
             services.AddSingleton<OrderCreateInputType>();
             // - //////////////////////////////////////////////////////////
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IAuthorizationEvaluator, AuthorizationEvaluator>();
+            // services.AddTransient<IValidationRule, AuthorizationValidationRule>();
+            services.AddTransient<IValidationRule>(s => new AuthorizationValidationRule(s.GetRequiredService<IAuthorizationEvaluator>()));
+
+            services.AddSingleton(s =>
+            {
+                var authSettings = new AuthorizationSettings();
+
+                authSettings.AddPolicy("AdminPolicy", _ => _.RequireClaim(ClaimTypes.Role, new string[] { "Admin" }));
+                authSettings.AddPolicy("ManagerPolicy", _ => _.RequireClaim(ClaimTypes.Role, new string[] { "Manager", "Admin" }));
+                authSettings.AddPolicy("UserPolicy", _ => _.RequireClaim(ClaimTypes.Role, new string[] { "User", "Manager", "Admin" }));
+
+                return authSettings;
+            });
 
             var sp = services.BuildServiceProvider();
             // services.AddScoped<ISchema>(_ => new EasyStoreSchema(type => (GraphType) sp.GetService(type)) {Query = sp.GetService<EasyStoreQuery>()});
@@ -71,7 +92,7 @@ namespace aspnetcoregraphql
 
             app.UseMvc();
             app.UseDefaultFiles();
-            app.UseStaticFiles();
-        }
+            app.UseStaticFiles();          
+        }      
     }
 }

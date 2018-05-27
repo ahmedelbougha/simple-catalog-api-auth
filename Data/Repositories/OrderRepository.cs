@@ -18,37 +18,51 @@ namespace aspnetcoregraphql.Data.Repositories
                 {
                     Id = 1,
                     CustomerId = 3,
-                    Name = "Order 1",
+                    Name = "Order 1 - c3",
                     Description = "some order description 1"
                 },
                 new Order()
                 {
                     Id = 1,
                     CustomerId = 2,
-                    Name = "Order 2",
+                    Name = "Order 1 - c2",
                     Description = "some order description 2"
                 },
                 new Order()
                 {
                     Id = 3,
                     CustomerId = 1,
-                    Name = "Order 3",
+                    Name = "Order 1 - c1",
                     Description = "some order description 3"
                 },
                 new Order()
                 {
                     Id = 4,
                     CustomerId = 2,
-                    Name = "Order 1",
+                    Name = "Order 2 - c2",
                     Description = "some order description 4"
                 },
                 new Order()
                 {
                     Id = 5,
                     CustomerId = 2,
-                    Name = "Order 3",
+                    Name = "Order 3 - c3",
                     Description = "some order description 5"
-                }
+                },
+                new Order()
+                {
+                    Id = 6,
+                    CustomerId = 1,
+                    Name = "Order 2 - c1",
+                    Description = "some order description 5"
+                },
+                new Order()
+                {
+                    Id = 7,
+                    CustomerId = 3,
+                    Name = "Order 2 - c3",
+                    Description = "some order description 5"
+                }                                
             };
         }
 
