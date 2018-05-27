@@ -31,8 +31,8 @@ namespace aspnetcoregraphql.Auth
                 Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),  
                 Issuer = "SmartStores",
                 Audience = "CustomClient",
-                IssuedAt = now
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature),                
+                IssuedAt = now,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)                
             };
             
             var stoken = tokenHandler.CreateToken(tokenDescriptor);  
