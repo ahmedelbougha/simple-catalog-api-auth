@@ -92,7 +92,7 @@ namespace aspnetcoregraphql
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(builder =>
-                builder.WithOrigins("http://localhost:8080")
+                builder.WithOrigins(new string[] {"http://localhost:5000", "http://localhost:8080"})
                     .AllowAnyHeader()
                     .AllowAnyMethod()
             );
