@@ -35,6 +35,8 @@ namespace aspnetcoregraphql
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // allow calls from different domains
+            services.AddCors();
             services.AddMvc();
 
 
@@ -89,7 +91,11 @@ namespace aspnetcoregraphql
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:8080")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+            );
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();          

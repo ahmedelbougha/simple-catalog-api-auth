@@ -56,7 +56,7 @@ namespace aspnetcoregraphql.Controllers
                 Query = query.Query,
                 OperationName = query.OperationName,
                 Inputs = query.Variables.ToInputs(),
-                ComplexityConfiguration = complexityConfiguration,
+                // ComplexityConfiguration = complexityConfiguration,
                 UserContext = userContext,
                 ValidationRules = _validationRules,
                 ExposeExceptions = true
